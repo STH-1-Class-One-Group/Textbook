@@ -1,91 +1,609 @@
-# HTML 기본 구조
-
-## HTML의 골격 구조
-
-**모든 웹페이지의 기본 틀!**
-
-```html
 <!DOCTYPE html>
-```
-**문서 타입 선언** - HTML5임을 브라우저에 알려주고 어떤 버전을 사용할지 알림
-
-```html
-<html>
-```
-**루트 요소** - 모든 HTML 콘텐츠를 담는 최상위 컨테이너
-
-```html
+<html lang="ko">
 <head>
-  <title>페이지 제목</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML 기본 구조 학습 가이드</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700;900&family=Playfair+Display:wght@700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2d3748;
+            --accent: #e53e3e;
+            --secondary: #4299e1;
+            --bg-light: #f7fafc;
+            --bg-code: #1a202c;
+            --text-main: #2d3748;
+            --text-light: #718096;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            line-height: 1.8;
+            color: var(--text-main);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><text x="10" y="50" font-size="40" opacity="0.1" fill="white">&lt;/&gt;</text></svg>');
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from { transform: translateX(0); }
+            to { transform: translateX(100px); }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.8s ease-out 0.2s backwards;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            font-weight: 300;
+            position: relative;
+            z-index: 1;
+            animation: slideDown 0.8s ease-out 0.4s backwards;
+        }
+
+        .diagram-container {
+            background: var(--bg-light);
+            padding: 2rem;
+            margin: 2rem;
+            border-radius: 16px;
+            border: 3px solid var(--border-color);
+            animation: slideUp 0.8s ease-out 0.6s backwards;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .diagram-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 2.5rem 0 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--accent);
+            position: relative;
+            animation: fadeInLeft 0.6s ease-out;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        h2::before {
+            content: '▸';
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 2rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        h3::before {
+            content: '●';
+            font-size: 0.8rem;
+        }
+
+        p {
+            margin-bottom: 1.2rem;
+            color: var(--text-main);
+        }
+
+        strong {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .code-block {
+            background: var(--bg-code);
+            color: #a0aec0;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            border: 2px solid #4a5568;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            animation: expandIn 0.5s ease-out;
+        }
+
+        @keyframes expandIn {
+            from {
+                opacity: 0;
+                transform: scaleY(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+
+        .code-block::before {
+            content: 'HTML';
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--accent);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        code {
+            color: #81e6d9;
+        }
+
+        .tag {
+            color: #f687b3;
+        }
+
+        .attribute {
+            color: #90cdf4;
+        }
+
+        .string {
+            color: #fbd38d;
+        }
+
+        .comment {
+            color: #68d391;
+            font-style: italic;
+        }
+
+        .key-points {
+            background: linear-gradient(135deg, #fef5e7 0%, #fff4e6 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border-left: 5px solid var(--accent);
+            margin: 2rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .key-points li:last-child {
+            border-bottom: none;
+        }
+
+        .key-points li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        .learning-steps {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .step-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-card:hover {
+            transform: translateX(8px);
+            border-color: var(--secondary);
+            box-shadow: 0 8px 24px rgba(66, 153, 225, 0.15);
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 5px;
+            background: linear-gradient(180deg, var(--accent), var(--secondary));
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-weight: 900;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #e6fffa 0%, #e0f2fe 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            border-left: 5px solid var(--secondary);
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.1);
+        }
+
+        .highlight-box p:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline {
+            background: linear-gradient(135deg, #fef5e7 0%, #fff4e6 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            margin: 2rem 0;
+        }
+
+        .timeline ol {
+            list-style: none;
+            padding-left: 0;
+            counter-reset: timeline-counter;
+        }
+
+        .timeline li {
+            counter-increment: timeline-counter;
+            padding: 1rem 0 1rem 3rem;
+            position: relative;
+            border-left: 3px solid var(--secondary);
+            margin-left: 1rem;
+        }
+
+        .timeline li::before {
+            content: counter(timeline-counter);
+            position: absolute;
+            left: -1.2rem;
+            top: 0.8rem;
+            width: 2.4rem;
+            height: 2.4rem;
+            background: var(--secondary);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 2.4rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+        }
+
+        .timeline li:last-child {
+            border-left-color: transparent;
+        }
+
+        .project-list {
+            display: grid;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .project-item {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .project-item:hover {
+            border-color: var(--accent);
+            transform: scale(1.02);
+            box-shadow: 0 6px 18px rgba(229, 62, 62, 0.15);
+        }
+
+        .project-item::before {
+            content: '▸';
+            color: var(--accent);
+            margin-right: 0.5rem;
+            font-weight: 900;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            font-weight: 300;
+        }
+
+        footer strong {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 1.5rem;
+            }
+
+            .step-card {
+                padding: 1rem;
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+        .stagger-5 { animation-delay: 0.5s; }
+    </style>
 </head>
-```
-**헤드 섹션** - 메타데이터, 제목, CSS/JS 링크 포함 (페이지에 보이지 않음!)
-
-```html
 <body>
-  <h1>메인 제목</h1>
-  <p>텍스트 단락</p>
+    <div class="container">
+        <header>
+            <h1>HTML 기본 구조</h1>
+            <p class="subtitle">모든 웹페이지의 기본 틀을 배워봅시다!</p>
+        </header>
+
+        <div class="diagram-container">
+            <img src="HTML.png" alt="HTML Structure Diagram">
+        </div>
+
+        <div class="content">
+            <h2>HTML의 골격 구조</h2>            
+            <p><strong>모든 웹페이지의 기본 틀!</strong></p>
+
+            <div class="code-block">
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+            </div>
+            <p><strong>문서 타입 선언</strong> - HTML5임을 브라우저에 알려주고 어떤 버전을 사용할지 알림</p>
+
+            <div class="code-block">
+<span class="tag">&lt;html&gt;</span>
+            </div>
+            <p><strong>루트 요소</strong> - 모든 HTML 콘텐츠를 담는 최상위 컨테이너</p>
+
+            <div class="code-block">
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;title&gt;</span>페이지 제목<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+            </div>
+            <p><strong>헤드 섹션</strong> - 메타데이터, 제목, CSS/JS 링크 포함 <strong>(페이지에 보이지 않음!)</strong></p>
+
+            <div class="code-block">
+<span class="tag">&lt;body&gt;</span>
+  <span class="tag">&lt;h1&gt;</span>메인 제목<span class="tag">&lt;/h1&gt;</span>
+  <span class="tag">&lt;p&gt;</span>텍스트 단락<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+            </div>
+            <p><strong>바디 섹션</strong> - 사용자가 실제로 보는 모든 콘텐츠 (텍스트, 이미지, 링크 등)</p>
+
+            <div class="code-block">
+<span class="tag">&lt;/html&gt;</span>
+            </div>
+
+            <div class="key-points">
+                <h2>핵심 포인트</h2>
+                <ul>
+                    <li><strong>태그는 쌍으로</strong> 작동: 여는 태그 <code>&lt;tag&gt;</code>와 닫는 태그 <code>&lt;/tag&gt;</code></li>
+                    <li><strong>일부는 자체 닫기</strong>: 예) <code>&lt;img /&gt;</code>, <code>&lt;br /&gt;</code></li>
+                    <li><strong>구조는 계층적</strong> (중첩 구조, 상자처럼)</li>
+                    <li><strong><code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>는 필수!</strong></li>
+                </ul>
+            </div>
+
+            <h2>효과적인 학습 방법</h2>
+
+            <div class="learning-steps">
+                <div class="step-card stagger-1">
+                    <h3><span class="step-number">1</span>직접 타이핑하며 실습</h3>
+                    <p>메모장이나 VS Code 같은 에디터로 직접 코드 작성</p>
+                    <p>복사-붙여넣기보다 손으로 타이핑하면 기억에 더 잘 남음</p>
+                </div>
+
+                <div class="step-card stagger-2">
+                    <h3><span class="step-number">2</span>단계별 학습</h3>
+                    <div class="timeline">
+                        <ol>
+                            <li><strong>1단계</strong>: 기본 구조만 만들기 (DOCTYPE, html, head, body)</li>
+                            <li><strong>2단계</strong>: 텍스트 태그 추가 (h1~h6, p, strong, em)</li>
+                            <li><strong>3단계</strong>: 이미지, 링크 추가 (img, a)</li>
+                            <li><strong>4단계</strong>: 목록, 표 만들기 (ul, ol, table)</li>
+                            <li><strong>5단계</strong>: 폼 요소 배우기 (input, button, form)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="step-card stagger-3">
+                    <h3><span class="step-number">3</span>즉시 확인</h3>
+                    <div class="code-block">
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;title&gt;</span>내 첫 페이지<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="tag">&lt;h1&gt;</span>안녕하세요!<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;p&gt;</span>이것은 내가 만든 첫 번째 웹페이지입니다.<span class="tag">&lt;/p&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span>
+                    </div>
+                    <div class="highlight-box">
+                        <p>이 코드를 <code>.html</code> 파일로 저장하고 브라우저로 열어보세요!</p>
+                    </div>
+                </div>
+
+                <div class="step-card stagger-4">
+                    <h3><span class="step-number">4</span>작은 프로젝트 만들기</h3>
+                    <div class="project-list">
+                        <div class="project-item">자기소개 페이지</div>
+                        <div class="project-item">좋아하는 영화/음악 리스트</div>
+                        <div class="project-item">간단한 이력서</div>
+                    </div>
+                </div>
+
+                <div class="step-card stagger-5">
+                    <h3><span class="step-number">5</span>개발자 도구 활용</h3>
+                    <p>브라우저에서 <strong>F12</strong> 키 → 다른 웹사이트의 HTML 구조 분석</p>
+                    <p>실시간으로 코드 수정하며 변화 확인</p>
+                </div>
+
+                <div class="step-card">
+                    <h3><span class="step-number">6</span>반복과 변형</h3>
+                    <p>같은 구조를 반복해서 만들기</p>
+                    <p>조금씩 요소를 추가하거나 변경해보기</p>
+                </div>
+
+                <div class="step-card">
+                    <h3><span class="step-number">7</span>추천 학습 순서</h3>
+                    <div class="timeline">
+                        <ol>
+                            <li>HTML 기본 태그 완전히 익히기 <strong>(2-3주)</strong></li>
+                            <li>CSS로 스타일링 배우기 <strong>(2-3주)</strong></li>
+                            <li>JavaScript로 동작 추가하기 <strong>(4주+)</strong></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <p><strong>핵심은 매일 조금씩이라도 직접 코드를 작성하는 것입니다!</strong></p>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>코딩은 실천입니다!</strong></p>
+            <p>꾸준히 연습하며 HTML의 기본 구조를 완벽히 익혀보세요.</p>
+        </footer>
+    </div>
 </body>
-```
-**바디 섹션** - 사용자가 실제로 보는 모든 콘텐츠 (텍스트, 이미지, 링크 등)
-
-```html
 </html>
-```
-
----
-
-## 핵심 포인트
-
-- **태그는 쌍으로** 작동: 여는 태그 `<tag>`와 닫는 태그 `</tag>`
-- **일부는 자체 닫기**: 예) `<img />`, `<br />`
-- **구조는 계층적** (중첩 구조, 상자처럼)
-- **`<html>`, `<head>`, `<body>`는 필수!**
-
----
-
-## 효과적인 학습 방법
-
-### 1. **직접 타이핑하며 실습**
-- 메모장이나 VS Code 같은 에디터로 직접 코드 작성
-- 복사-붙여넣기보다 손으로 타이핑하면 기억에 더 잘 남음
-
-### 2. **단계별 학습**
-- **1단계**: 기본 구조만 만들기 (DOCTYPE, html, head, body)
-- **2단계**: 텍스트 태그 추가 (h1~h6, p, strong, em)
-- **3단계**: 이미지, 링크 추가 (img, a)
-- **4단계**: 목록, 표 만들기 (ul, ol, table)
-- **5단계**: 폼 요소 배우기 (input, button, form)
-
-### 3. **즉시 확인**
-```html
-<!DOCTYPE html>
-<html>
-<head>
-    <title>내 첫 페이지</title>
-</head>
-<body>
-    <h1>안녕하세요!</h1>
-    <p>이것은 내가 만든 첫 번째 웹페이지입니다.</p>
-</body>
-</html>
-```
-이 코드를 `.html` 파일로 저장하고 브라우저로 열어보세요!
-
-### 4. **작은 프로젝트 만들기**
-- 자기소개 페이지
-- 좋아하는 영화/음악 리스트
-- 간단한 이력서
-
-### 5. **개발자 도구 활용**
-- 브라우저에서 F12 키 → 다른 웹사이트의 HTML 구조 분석
-- 실시간으로 코드 수정하며 변화 확인
-
-### 6. **반복과 변형**
-- 같은 구조를 반복해서 만들기
-- 조금씩 요소를 추가하거나 변경해보기
-
-### 7. **추천 학습 순서**
-1. HTML 기본 태그 완전히 익히기 (2-3주)
-2. CSS로 스타일링 배우기 (2-3주)
-3. JavaScript로 동작 추가하기 (4주+)
